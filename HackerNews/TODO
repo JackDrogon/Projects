@@ -1,0 +1,5 @@
+1. Use redis as db
+2. Use benstalk / rabbitmq
+3. Use yaml as config
+4. Use json markdown html(erb/haml)
+5. Comminuate with wechat
