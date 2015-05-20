@@ -16,8 +16,21 @@ get '/:year/:month/:day' do
 end
 
 # Use redis hash, mysql (with datetime author...)
-get '/aritles/:name' do
-  "You get artile #{params['name']}!"
+get '/articles/:name' do
+  # articles/2015-05-20_hello.md
+  article_name = "./articles/#{params[:name]}"
+  if File.readable? article_name
+    article = File.read article_name
+    # FIXME: Here Document Problem
+    <<-ARTICLE
+    You get artile #{params['name']}!
+
+    Article is:
+    #{article}
+    ARTICLE
+  else
+    "NOT_FOUND #{params['name']}"
+  end
 end
 
 get '/cateory' do
