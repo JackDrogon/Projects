@@ -2,6 +2,16 @@
 # -*- coding:utf-8 -*-
 
 require 'sinatra'
+require 'redis'
+require 'pp'
+
+require_relative 'app_config'
+
+redis = Redis.new RedisServerOption
+
+# TODO: add proc, when value is nil, use proc to generate value
+def get_key(key)
+end
 
 get '/' do
   content_type :txt
@@ -11,6 +21,10 @@ end
 ## Blog
 # @doc: list article
 # redis list
+
+get '/listarticles' do
+end
+
 get '/:year/:month/:day' do
   "#{params['year']}-#{params['month']}-#{params['day']}'s Articles."
 end
@@ -20,7 +34,10 @@ get '/articles/:name' do
   # articles/2015-05-20_hello.md
   article_name = "./articles/#{params[:name]}"
   if File.readable? article_name
-    article = File.read article_name
+    article = redis.get(article_name)
+    pp article
+    article ||= File.read(article_name)
+    redis.set article_name, article
     # FIXME: Here Document Problem
     <<-ARTICLE
     You get artile #{params['name']}!
