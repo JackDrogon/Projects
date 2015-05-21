@@ -1,11 +1,15 @@
 #!/usr/bin/env ruby
 # -*- coding:utf-8 -*-
 
-require 'sinatra'
-require 'redis'
 require 'pp'
 
+require 'sinatra'
+require 'redis'
+require 'rdiscount'
+
 require_relative 'app_config'
+
+# TODO: Add logger
 
 redis = Redis.new RedisServerOption
 
@@ -43,7 +47,7 @@ get '/articles/:name' do
     You get artile #{params['name']}!
 
     Article is:
-    #{article}
+    #{markdown article}
     ARTICLE
   else
     "NOT_FOUND #{params['name']}"
