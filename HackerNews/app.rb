@@ -27,6 +27,14 @@ end
 # redis list
 
 get '/listarticles' do
+  # FIXME: Rewrite
+  article = <<-ARTICLE
+  <h1><center>List Articles</center></h1> </br>
+  ARTICLE
+  Dir.entries(Articles).select {|p| p[0] != "." }.each {|a| article << "<a href=\"articles/#{a}\"> #{a} </a> <br />\n"}
+  #pp article
+
+  article
 end
 
 get '/:year/:month/:day' do
