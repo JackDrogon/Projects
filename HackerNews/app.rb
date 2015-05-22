@@ -31,7 +31,7 @@ get '/listarticles' do
   article = <<-ARTICLE
   <h1><center>List Articles</center></h1> </br>
   ARTICLE
-  Dir.entries(Articles).select {|p| p[0] != "." }.each {|a| article << "<a href=\"articles/#{a}\"> #{a} </a> <br />\n"}
+  Dir.entries(Articles).select {|p| p[0] != "." }.sort {|a, b| b <=> a}.each {|a| article << "<a href=\"articles/#{a}\"> #{a} </a> <br />\n"}
   #pp article
 
   article

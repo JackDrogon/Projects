@@ -3,3 +3,6 @@
 3. Use yaml as config
 4. Use json markdown html(erb/haml)
 5. Comminuate with wechat
+6. Use SQL, first sqlite / pg
+7. Use ActiveRecord
+8. Use multithread sinatra
