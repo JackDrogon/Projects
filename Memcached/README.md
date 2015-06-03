@@ -1,0 +1,1 @@
+# Memcached Write By Ruby
