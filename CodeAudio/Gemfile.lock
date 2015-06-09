@@ -3,6 +3,8 @@ GEM
     json (1.8.2)
     mime-types (1.25.1)
     netrc (0.8.0)
+    puma (2.11.3)
+      rack (>= 1.1, < 2.0)
     qiniu (6.2.4)
       json (~> 1.7)
       mime-types (~> 1.19)
@@ -25,5 +27,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  puma (~> 2.11.3)
   qiniu (~> 6.2.1)
   sinatra (~> 1.4.6)
