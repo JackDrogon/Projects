@@ -9,5 +9,7 @@
 
 # 为了减轻服务端压力，这里没有什么流量经过服务端，下载与上传都是经过七牛
 
+require 'sinatra'
+
 get '/static/:audio_url' do
 end
