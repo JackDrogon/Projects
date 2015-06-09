@@ -3,3 +3,7 @@
 3. use reactor
 4. add lock
 5. 使用表驱动
+6. add gets cas
+7. add lru
+8. add mutex
+9. use sinelaton
