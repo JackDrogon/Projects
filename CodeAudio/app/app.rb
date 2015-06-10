@@ -11,5 +11,18 @@
 
 require 'sinatra'
 
-get '/static/:audio_url' do
+get '/audio/static/:audio_url' do
+  # audio.html
+end
+
+get '/audio/record' do
+end
+
+get '/api/token' do
+  # 如何在此处验证文件大小和播放时间
+  filename = params['filename'] # 上传的文件名
+  token = "" # 上传token
+  url = "" # 用于生成二维码
+  # 生成json返回
+  # 写入redis, filename, url
 end
