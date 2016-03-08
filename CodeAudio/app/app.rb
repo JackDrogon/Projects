@@ -11,6 +11,10 @@
 
 require 'sinatra'
 
+get '/' do
+  render '/index.html'
+end
+
 get '/audio/static/:audio_url' do
   # audio.html
 end
