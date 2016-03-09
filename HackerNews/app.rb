@@ -1,15 +1,18 @@
 #!/usr/bin/env ruby
 # -*- coding:utf-8 -*-
 
-require 'pp'
-
 require 'sinatra'
-require 'redis'
+require "sinatra/reloader" if development?
 require 'rdiscount'
+require 'tilt/erubis'
+require 'redis'
 
 require_relative 'app_config'
 
 # TODO: Add logger
+# TODO: Compare redis value && artitle time, update artitle
+# TODO: redis just as cache
+# TODO: 添加文章的静态化, 去除redis
 
 redis = Redis.new RedisServerOption
 
@@ -22,11 +25,15 @@ get '/' do
   'Welcome to HackerNews.'
 end
 
+get '/env' do
+  env.inspect
+end
+
 ## Blog
 # @doc: list article
 # redis list
 
-get '/listarticles' do
+get '/articles' do
   # FIXME: Rewrite
   article = <<-ARTICLE
   <h1><center>List Articles</center></h1> </br>
@@ -47,16 +54,16 @@ get '/articles/:name' do
   article_name = "./articles/#{params[:name]}"
   if File.readable? article_name
     article = redis.get(article_name)
-    pp article
-    article ||= File.read(article_name)
+    # pp article
+    article ||= markdown(File.read(article_name))
     redis.set article_name, article
     # FIXME: Here Document Problem
-    <<-ARTICLE
-    You get artile #{params['name']}!
-
+    # You get artitle #{params['name']}!<br \>
+    @article = <<-ARTICLE
     Article is:
-    #{markdown article}
+    #{article}
     ARTICLE
+    erb :blog
   else
     "NOT_FOUND #{params['name']}"
   end
@@ -85,3 +92,10 @@ end
 
 get '/api/logout' do
 end
+
+__END__
+
+@@blog
+
+<h1> Blog </h1>
+<%= @article %>
